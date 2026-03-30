@@ -1,0 +1,97 @@
+/* General page reset and font setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: whitesmoke;
+    color: dimgray;
+}
+
+/* Header styling */
+header {
+    background-color: darkslategray;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 16px;
+    color: lightgray;
+}
+
+/* Container for product cards - uses flexbox to lay them out */
+#product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 40px 20px;
+}
+
+/* Individual product card styling */
+.product-card {
+    background-color: white;
+    border-radius: 10px;
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Smooth transition for the hover effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect: slight scale up and stronger shadow */
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Product image sizing */
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+/* Product name styling */
+.product-card h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: darkslategray;
+}
+
+/* Product price styling */
+.product-card p {
+    font-size: 16px;
+    color: seagreen;
+    font-weight: bold;
+}
+
+/* Loading message that shows before products load in */
+#loading-text {
+    font-size: 19px;
+    color: darkgray;
+    text-align: center;
+    width: 100%;
+    padding: 40px 0;
+}
+
+/* Footer at the bottom */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: darkgray;
+    font-size: 14px;
+}
