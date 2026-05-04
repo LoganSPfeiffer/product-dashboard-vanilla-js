@@ -1,68 +1,55 @@
-// store API link
 const API_URL = "https://www.course-api.com/javascript-store-products";
+const PRODUCTS_TO_SHOW = 5;
 
-// fetch with .then() - logs product names to the console
+// Demonstrates .then()/.catch() — logs names to the console for comparison
 function fetchProductsThen() {
     fetch(API_URL)
         .then(function (response) {
             return response.json();
         })
         .then(function (products) {
-            console.log("--- Products from .then() ---");
+            console.log("--- Products via .then() ---");
             products.forEach(function (product) {
                 console.log(product.fields.name);
             });
         })
         .catch(function (error) {
-            console.log("Fetch error (then): " + error.message);
+            console.error("Fetch error (.then):", error.message);
         });
 }
 
-// fetch with async/await - sends data to displayProducts
+// Primary fetch — uses async/await and renders cards to the page
 async function fetchProductsAsync() {
     try {
         const response = await fetch(API_URL);
         const products = await response.json();
         displayProducts(products);
     } catch (error) {
-        handleError(error);
+        showError(error);
     }
 }
 
-// builds product cards and adds them to the page
 function displayProducts(products) {
     const container = document.querySelector("#product-container");
-
-    // clear the loading message
     container.innerHTML = "";
 
-    // grab the first 5 products
-    const firstFive = products.slice(0, 5);
+    products.slice(0, PRODUCTS_TO_SHOW).forEach(function (product) {
+        const { name, price, image } = product.fields;
 
-    firstFive.forEach(function (product) {
-        // get the product info
-        const name = product.fields.name;
-        const price = product.fields.price;
-        const imageUrl = product.fields.image[0].url;
-
-        // card div
         const card = document.createElement("div");
         card.classList.add("product-card");
 
-        // image
         const img = document.createElement("img");
-        img.src = imageUrl;
+        img.src = image[0].url;
         img.alt = name;
 
-        // product name
         const title = document.createElement("h2");
         title.textContent = name;
 
-        // price (comes in cents so divide by 100)
+        // Price is stored in cents
         const priceTag = document.createElement("p");
         priceTag.textContent = "$" + (price / 100).toFixed(2);
 
-        // put it all together
         card.appendChild(img);
         card.appendChild(title);
         card.appendChild(priceTag);
@@ -70,11 +57,13 @@ function displayProducts(products) {
     });
 }
 
-// handles any fetch errors
-function handleError(error) {
-    console.log("An error occurred: " + error.message);
+function showError(error) {
+    console.error("An error occurred:", error.message);
+
+    const container = document.querySelector("#product-container");
+    container.innerHTML =
+        '<p id="loading-text">Failed to load products. Please try again later.</p>';
 }
 
-// run both fetch functions
 fetchProductsThen();
 fetchProductsAsync();
